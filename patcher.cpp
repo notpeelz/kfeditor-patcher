@@ -53,9 +53,11 @@ std::wstring GetShellPropStringFromPath(LPCWSTR pPath, PROPERTYKEY const& key)
     return std::wstring(pValue);
 }
 
-int wmain(int argc, wchar_t *argv[])
+int wmain(int argc, wchar_t* argv[])
 {
-    if (wcscmp(argv[0], L"KFEditor.exe") == 0)
+    auto imagePath = std::wstring(argv[0]);
+    std::wstring basename = imagePath.substr(imagePath.find_last_of(L"/\\") + 1);
+    if (_wcsicmp(basename.c_str(), L"KFEditor.exe") == 0)
     {
         size_t len = 0;
 
