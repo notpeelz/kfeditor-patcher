@@ -23,7 +23,7 @@ bool MatchSignature(const uint8_t* data, const uint8_t* sig, const char* mask)
 
 uint8_t* FindSignature(uint8_t* data, uint64_t start, uint64_t size, const uint8_t* sig, const char* mask)
 {
-    for (auto i = 0; i < size; i++)
+    for (uint64_t i = 0; i < size; i++)
     {
         if (MatchSignature(data + i, sig, mask))
         {
@@ -71,7 +71,10 @@ int wmain(int argc, wchar_t* argv[])
 
         wchar_t* all_args;
         {
-            wchar_t* _all_args = all_args = (wchar_t*)malloc((len + argc - 1) * sizeof(wchar_t));
+            auto size = (len + argc - 1) * sizeof(wchar_t);
+            wchar_t* _all_args = all_args = (wchar_t*)malloc(size);
+            memset(_all_args, 0, size);
+
             for (auto i = 1; i < argc; i++)
             {
                 if (shouldPatch && i == 1)
@@ -84,10 +87,10 @@ int wmain(int argc, wchar_t* argv[])
                     memcpy(_all_args, argv[i], wcslen(argv[i]) * sizeof(wchar_t));
                     _all_args += wcslen(argv[i]);
                 }
-                _all_args += sizeof(wchar_t);
-                *_all_args = L'\x20';
+                *_all_args = L' ';
+                _all_args++;
             }
-            *(_all_args - sizeof(wchar_t)) = L'\0';
+            *(_all_args) = L'\0';
         }
 
         STARTUPINFO si{ sizeof(si) };
