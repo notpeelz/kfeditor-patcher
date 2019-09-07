@@ -1,9 +1,5 @@
 #include <fstream>
-#include <Windows.h>
-#include <ShlObj.h>
-#include <atlbase.h>
 #include <string>
-#include <system_error>
 #include <vector>
 
 bool MatchSignature(const uint8_t* data, const uint8_t* sig, const char* mask)
@@ -26,25 +22,6 @@ uint8_t* FindSignature(uint8_t* data, uint64_t start, uint64_t size, const uint8
     }
 
     return nullptr;
-}
-
-bool FileExists(const std::wstring& name)
-{
-    std::ifstream f(name);
-    return f.good();
-}
-
-std::wstring GetShellPropStringFromPath(LPCWSTR pPath, PROPERTYKEY const& key)
-{
-    CComPtr<IShellItem2> pItem;
-    HRESULT hr = SHCreateItemFromParsingName(pPath, nullptr, IID_PPV_ARGS(&pItem));
-    if (FAILED(hr)) throw std::system_error(hr, std::system_category(), "SHCreateItemFromParsingName() failed");
-
-    CComHeapPtr<WCHAR> pValue;
-    hr = pItem->GetString(key, &pValue);
-    if (FAILED(hr)) throw std::system_error(hr, std::system_category(), "IShellItem2::GetString() failed");
-
-    return std::wstring(pValue);
 }
 
 int wmain(int argc, wchar_t* argv[])
