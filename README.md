@@ -18,4 +18,6 @@ Usage
 
 The resulting UPK will appear in `steamapps\common\killingfloor2\Binaries\Win64`.
 
-Note: you have to launch it using the `make` commandlet, not `mergepackages`. This is not a typo.
+Notes:
+- You have to launch it using the `make` commandlet, not `mergepackages`. This is not a typo.
+- You might have to move your assets to `steamapps\common\killingfloor2\KFGame\BrewedPC` or the commandlet might not correctly resolve package references.
