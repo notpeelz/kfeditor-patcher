@@ -25,7 +25,7 @@ uint8_t* FindSignature(uint8_t* data, uint64_t start, uint64_t size, const uint8
 {
     for (uint64_t i = 0; i < size; i++)
     {
-        if (MatchSignature(data + i, sig, mask))
+        if (MatchSignature(data + start + i, sig, mask))
         {
             return data + start + i;
         }
