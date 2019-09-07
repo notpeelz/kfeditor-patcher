@@ -71,11 +71,11 @@ int wmain(int argc, wchar_t* argv[])
 
         wchar_t* all_args;
         {
-            auto size = (len + argc - 1) * sizeof(wchar_t);
+            auto size = (len + argc) * sizeof(wchar_t);
             wchar_t* _all_args = all_args = (wchar_t*)malloc(size);
             memset(_all_args, 0, size);
 
-            for (auto i = 1; i < argc; i++)
+            for (auto i = 0; i < argc; i++)
             {
                 if (shouldPatch && i == 1)
                 {
@@ -165,7 +165,7 @@ int wmain(int argc, wchar_t* argv[])
     // Patch the class name
     {
         const wchar_t commandletName[25] = L"UMergePackagesCommandlet";
-        const wchar_t commandletReplacement[25] = L"UMergeCommandlet\0\0\0\0\0\0\0\0";
+        const wchar_t commandletReplacement[25] = L"UMerge\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
         const char commandletMask[] = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
         auto data = (uint8_t*)buffer.data();
